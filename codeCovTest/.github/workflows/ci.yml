@@ -1,0 +1,30 @@
+name: Codecov Coverage
+
+on: [push, pull_request]
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Gradle Build
+        run: ./gradlew clean build
+
+      - name: Kover Test and Create Report
+        run: ./gradlew koverXmlReport
+
+      - name: Upload 커버리지 리포트
+        uses: codecov/codecov-action@v3
+        with:
+          file: "build/reports/kover/report.xml"
+          token: ${{ secrets.CODECOV_TOKEN }}
