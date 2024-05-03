@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class ByeController {
-    @GetMapping("/message")
+    @GetMapping("/bye")
     fun get(): String = "Bye"
 
-    @PostMapping("/message")
+    @PostMapping("/bye")
     fun post(): String = "Bye"
 
 }
