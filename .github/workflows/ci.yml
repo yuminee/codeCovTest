@@ -6,6 +6,10 @@ jobs:
   coverage:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: codeCovTest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -18,7 +22,8 @@ jobs:
           cache: 'gradle'
 
       - name: Gradle Build
-        run: ./gradlew clean build
+        run: |
+         ./gradlew clean build
 
       - name: Kover Test and Create Report
         run: ./gradlew koverXmlReport
